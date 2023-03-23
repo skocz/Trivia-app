@@ -10,7 +10,7 @@
 
 3. **PIP Dependencies** - Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 This will install all of the required packages we selected within the `requirements.txt` file.
 
@@ -107,5 +107,5 @@ To run the tests, run
 dropdb trivia_test
 createdb trivia_test
 psql trivia_test < trivia.psql
-python test_flaskr.py
+python3 test_flaskr.py
 ```

@@ -3,7 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
-
+import math
 from models import  db, setup_db, Question, Category
 
 QUESTIONS_PER_PAGE = 10
@@ -42,8 +42,15 @@ def create_app(test_config=None):
     formatted_questions = [question.format() for question in questions]
     categories = Category.query.all()
     formatted_categories = {category.id: category.type for category in categories}
-    if len(formatted_questions) == 0:
-      abort(404)
+    
+    total_questions = len(questions)
+    print( 'total_questions',total_questions )
+    if total_questions == 0:
+      abort(404, description='No questions found.')
+    
+    if (page > math.ceil(total_questions/10)) or (page < 1):
+      abort(404, description='Invalid page number.')
+    
 
     return jsonify({
       'success': True,
@@ -163,7 +170,15 @@ def create_app(test_config=None):
     return jsonify({
       "success": False,
       "error": 404,
-      "message": "Resource not found"
+      "message": "Resource not found."
     }), 404
+  
+  @app.errorhandler(405)
+  def method_not_allowed(error):
+    return jsonify({
+      "success": False,
+      "error": 405,
+      "message": "Method not allowed."
+    }), 405
 
   return app
