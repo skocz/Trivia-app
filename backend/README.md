@@ -98,6 +98,105 @@ GET '/api/v1.0/categories'
 '5' : "Entertainment",
 '6' : "Sports"}
 
+POST /api/v1.0/questions
+- adds a new question
+- Response Body: 
+{
+    'created': 4,
+    'questions': [
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer', 
+            'difficulty': 5,
+            'category': 2
+        },
+    ],
+}
+
+GET '/questions?page=${integer}'
+- Fetches a paginated set of questions, a total number of questions, all categories and current category string. 
+- Request Arguments: page - integer
+- Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
+{
+    'success': bool,
+    'questions': [
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer', 
+            'difficulty': 5,
+            'category': 2
+        },
+    ],
+    'totalQuestions': 100,
+    'categories': { '1' : "Science",
+    '2' : "Art",
+    '3' : "Geography",
+    '4' : "History",
+    '5' : "Entertainment",
+    '6' : "Sports" },
+    'currentCategory': None
+}
+
+DELETE /api/v1.0/questions/<int:question_id>'
+- Deletes a specified question using the id of the question
+- Request Arguments: id - integer
+- Returns: appropriate HTTP status code and the id of the question. 
+
+GET /api/v1.0/categories/<int:category_id>/questions
+- Fetches questions for a cateogry specified by id request argument 
+- Request Arguments: id - integer
+- Returns: An object with questions for the specified category, total questions, and current category string 
+{
+    'questions': [
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer', 
+            'difficulty': 5,
+            'category': 4
+        },
+    ],
+    'totalQuestions': 100,
+    'currentCategory': 'History'
+}
+
+POST '/api/v1.0/questions/search'
+- searches for a specific question by search term 
+- Request Body: 
+{
+    'searchTerm': 'this is the term the user is looking for'
+}
+- Returns: any array of questions, a number of totalQuestions that met the search term and the current category string 
+{
+    'questions': [
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer', 
+            'difficulty': 5,
+            'category': 5
+        },
+    ],
+    'totalQuestions': 100,
+    'currentCategory': 'Entertainment'
+}
+
+POST '/api/v1.0/quizzes'
+It returns a random question from the selected category that has not been answered before. If all questions have been answered, it returns null.
+Request Body: {
+  "previous_questions": [1, 2, 3],
+  "quiz_category": {
+    "id": 1,
+    "type": "Science"
+  }
+}
+Response:
+{
+  "success": true,
+  "question": "What is the smallest planet in the Solar System?"
+}
 ```
 
 

@@ -97,7 +97,7 @@ def create_app(test_config=None):
 
     # check for missing fields
     if not data.get('question') or not data.get('answer') or not data.get('category') or not data.get('difficulty'):
-     abort(400, 'Missing required fields')
+      abort(400, 'Missing required fields')
 
     question = data.get('question')
     answer = data.get('answer')
@@ -146,10 +146,13 @@ def create_app(test_config=None):
 
     previous_questions = data.get('previous_questions', [])
     quiz_category = data.get('quiz_category', None)
-
+    
     if quiz_category:
       category_id = quiz_category['id']
-      questions = Question.query.filter(Question.category == category_id, ~Question.id.in_(previous_questions)).all()
+      if category_id == 0:
+        questions = Question.query.filter(~Question.id.in_(previous_questions)).all()
+      else:
+        questions = Question.query.filter(Question.category == category_id, ~Question.id.in_(previous_questions)).all()
     else:
       questions = Question.query.filter(~Question.id.in_(previous_questions)).all()
 

@@ -63,7 +63,7 @@ You can optionally update this game play to increase the number of questions or 
 
 
 ```js
-GET '/categories'
+GET '/api/v1.0/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains an object of id: category_string key:value pairs. 
@@ -79,7 +79,7 @@ GET '/categories'
 
 
 ```js
-GET '/questions?page=${integer}'
+GET '/api/v1.0/questions?page=${integer}'
 - Fetches a paginated set of questions, a total number of questions, all categories and current category string. 
 - Request Arguments: page - integer
 - Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
@@ -105,7 +105,7 @@ GET '/questions?page=${integer}'
 ```
 
 ```js
-GET '/categories/${id}/questions'
+GET '/api/v1.0/categories/${id}/questions'
 - Fetches questions for a cateogry specified by id request argument 
 - Request Arguments: id - integer
 - Returns: An object with questions for the specified category, total questions, and current category string 
@@ -125,14 +125,14 @@ GET '/categories/${id}/questions'
 ```
 
 ```js
-DELETE '/questions/${id}'
+DELETE '/api/v1.0/questions/${id}'
 - Deletes a specified question using the id of the question
 - Request Arguments: id - integer
 - Returns: Does not need to return anything besides the appropriate HTTP status code. Optionally can return the id of the question. If you are able to modify the frontend, you can have it remove the question using the id instead of refetching the questions. 
 ```
 
 ```js
-POST '/quizzes'
+POST '/api/v1.0/quizzes'
 - Sends a post request in order to get the next question 
 - Request Body: 
 {'previous_questions':  an array of question id's such as [1, 4, 20, 15]
@@ -150,7 +150,7 @@ POST '/quizzes'
 ```
 
 ```js
-POST '/questions'
+POST '/api/v1.0/questions'
 - Sends a post request in order to add a new question
 - Request Body: 
 {
@@ -163,7 +163,7 @@ POST '/questions'
 ```
 
 ```js
-POST '/questions'
+POST '/api/v1.0/questions'
 - Sends a post request in order to search for a specific question by search term 
 - Request Body: 
 {
