@@ -22,6 +22,10 @@ This will install all of the required packages we selected within the `requireme
 
  - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
 
+### ENV FILE SHOULD INCLUDE
+database_name: This is the name of the Trivia database. In this case, it should be set to "trivia".
+database_path: This is the connection string for the Trivia database. It should be set to 'postgresql://tobias@localhost:5432/trivia', where "tobias" is the username used to connect to the database.
+
 ### Database Setup
 With Postgres running, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
 ```bash
@@ -117,7 +121,7 @@ POST /api/v1.0/questions
 GET '/questions?page=${integer}'
 - Fetches a paginated set of questions, a total number of questions, all categories and current category string. 
 - Request Arguments: page - integer
-- Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
+- Response: An object with 10 paginated questions, total questions, object including all categories, and current category string
 {
     'success': bool,
     'questions': [
@@ -147,7 +151,7 @@ DELETE /api/v1.0/questions/<int:question_id>'
 GET /api/v1.0/categories/<int:category_id>/questions
 - Fetches questions for a cateogry specified by id request argument 
 - Request Arguments: id - integer
-- Returns: An object with questions for the specified category, total questions, and current category string 
+- Response: An object with questions for the specified category, total questions, and current category string 
 {
     'questions': [
         {
@@ -168,7 +172,7 @@ POST '/api/v1.0/questions/search'
 {
     'searchTerm': 'this is the term the user is looking for'
 }
-- Returns: any array of questions, a number of totalQuestions that met the search term and the current category string 
+- Response: any array of questions, a number of totalQuestions that met the search term and the current category string 
 {
     'questions': [
         {
