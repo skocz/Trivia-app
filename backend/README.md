@@ -87,9 +87,12 @@ This README is missing documentation of your endpoints. Below is an example for 
 
 Endpoints
 GET '/api/v1.0/categories'
-GET ...
-POST ...
-DELETE ...
+GET '/api/v1.0/questions'
+GET '/api/v1.0/categories/<int:category_id>/questions'
+POST '/api/v1.0/questions'
+POST '/api/v1.0/questions/search'
+post '/api/v1.0/quizzes'
+DELETE '/api/v1.0/questions/<int:question_id>'
 
 GET '/api/v1.0/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
@@ -101,6 +104,37 @@ GET '/api/v1.0/categories'
 '4' : "History",
 '5' : "Entertainment",
 '6' : "Sports"}
+
+
+GET /api/v1.0/questions
+- Fetches a list of questions
+- Request Arguments:
+  - page (optional): Page number for pagination. Defaults to 1 if not provided.
+- Response Body: 
+{
+    'success': True,
+    'questions': [
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer', 
+            'difficulty': 5,
+            'category': 2
+        },
+        // questions...
+    ],
+    'total_questions': 100, // Total number of questions in the database.
+    'categories': { // The categories of the questions.
+      '1': 'Category1',
+      '2': 'Category2',
+      //categories...
+    },
+    'current_category': None
+}
+- Possible Errors:
+    - If there are no questions in the database, it will return 404 with description 'No questions found.'
+    - If the page number is less than 1 or more than the number of pages, it will return 404 with description 'Invalid page number.'
+
 
 POST /api/v1.0/questions
 - adds a new question
